@@ -46,18 +46,23 @@ public class FloatBallView extends LinearLayout {
 
     private int mCurrentMode;
 
-    private final static int MODE_NONE = 0x000;
-    private final static int MODE_DOWN = 0x001;
-    private final static int MODE_UP = 0x002;
-    private final static int MODE_LEFT = 0x003;
-    private final static int MODE_RIGHT = 0x004;
-    private final static int MODE_MOVE = 0x005;
-    private final static int MODE_GONE = 0x006;
+    public final static int MODE_NONE = 0x000;
+    public final static int MODE_DOWN = 0x001;
+    public final static int MODE_UP = 0x002;
+    public final static int MODE_LEFT = 0x003;
+    public final static int MODE_RIGHT = 0x004;
+    public final static int MODE_MOVE = 0x005;
+    public final static int MODE_CLICK = 0x006;
+    public final static int MODE_GONE = 0x007;
 
     private final static int OFFSET = 30;
 
     private float mBigBallX;
     private float mBigBallY;
+
+    public AccessibilityService getService() {
+        return mService;
+    }
 
     private int mOffsetToParent;
     private int mOffsetToParentY;
@@ -134,11 +139,15 @@ public class FloatBallView extends LinearLayout {
                         mIsTouching = false;
                         if (mIsLongTouch) {
                             mIsLongTouch = false;
-                        } else if (isClick(event)) {
-                            AccessibilityUtil.doBack(mService);
                         } else {
+                            if (isClick(event)) {
+//                            AccessibilityUtil.doBack(mService);
+                                mCurrentMode = MODE_CLICK;
+                            }
+                            if (onActionListener != null) onActionListener.onAction(mCurrentMode);
                             doUp();
                         }
+
                         mImgBall.setVisibility(VISIBLE);
                         mImgBigBall.setVisibility(INVISIBLE);
                         mCurrentMode = MODE_NONE;
@@ -147,6 +156,16 @@ public class FloatBallView extends LinearLayout {
                 return true;
             }
         });
+    }
+
+    private OnActionListener onActionListener;
+
+    public void setOnActionListener(OnActionListener onActionListener) {
+        this.onActionListener = onActionListener;
+    }
+
+    public interface OnActionListener {
+        void onAction(int Mode);
     }
 
     /**
@@ -159,6 +178,7 @@ public class FloatBallView extends LinearLayout {
 
     /**
      * 判断是否是轻微滑动
+     *
      * @param event
      * @return
      */
@@ -173,6 +193,7 @@ public class FloatBallView extends LinearLayout {
 
     /**
      * 判断手势（左右滑动、上拉下拉)）
+     *
      * @param event
      */
     private void doGesture(MotionEvent event) {
@@ -231,19 +252,19 @@ public class FloatBallView extends LinearLayout {
      * 手指抬起后，根据当前模式触发对应功能
      */
     private void doUp() {
-        switch (mCurrentMode) {
-            case MODE_LEFT:
-            case MODE_RIGHT:
-                AccessibilityUtil.doLeftOrRight(mService);
-                break;
-            case MODE_DOWN:
-                AccessibilityUtil.doPullDown(mService);
-                break;
-            case MODE_UP:
-                AccessibilityUtil.doPullUp(mService);
-                break;
-
-        }
+//        switch (mCurrentMode) {
+//            case MODE_LEFT:
+//            case MODE_RIGHT:
+//                AccessibilityUtil.doLeftOrRight(mService);
+//                break;
+//            case MODE_DOWN:
+//                AccessibilityUtil.doPullDown(mService);
+//                break;
+//            case MODE_UP:
+//                AccessibilityUtil.doPullUp(mService);
+//                break;
+//
+//        }
         mImgBigBall.setX(mBigBallX);
         mImgBigBall.setY(mBigBallY);
     }
@@ -254,6 +275,7 @@ public class FloatBallView extends LinearLayout {
 
     /**
      * 判断是否是长按
+     *
      * @param event
      * @return
      */
@@ -273,6 +295,7 @@ public class FloatBallView extends LinearLayout {
 
     /**
      * 判断是否是单击
+     *
      * @param event
      * @return
      */
@@ -290,6 +313,7 @@ public class FloatBallView extends LinearLayout {
 
     /**
      * 获取通知栏高度
+     *
      * @return
      */
     private int getStatusBarHeight() {

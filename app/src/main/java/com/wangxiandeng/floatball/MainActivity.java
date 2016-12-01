@@ -13,6 +13,7 @@ public class MainActivity extends Activity {
 
     private Button mBtnStart;
     private Button mBtnQuit;
+    private Button btnGesture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
     private void initView() {
         mBtnStart = (Button) findViewById(R.id.btn_start);
         mBtnQuit = (Button) findViewById(R.id.btn_quit);
+        btnGesture = (Button) findViewById(R.id.btn_gesture);
         mBtnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +53,13 @@ public class MainActivity extends Activity {
                 data.putInt("type", FloatBallService.TYPE_DEL);
                 intent.putExtras(data);
                 startService(intent);
+            }
+        });
+        btnGesture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
             }
         });
     }
