@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wangxiandeng.floatball.SettingActivity">
+
+    <LinearLayout
+        android:id="@+id/llMoveUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上滑" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvUpAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁屏" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMoveDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下滑" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvDownAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁屏" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llMoveLeft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左滑" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvLeftAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁屏" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llMoveRight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="右滑" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvRightAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁屏" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llMoveClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单击" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvClickAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="锁屏" />
+    </LinearLayout>
+</LinearLayout>
