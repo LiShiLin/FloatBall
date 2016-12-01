@@ -10,7 +10,8 @@ import android.provider.Settings;
 
 public class AccessibilityUtil {
     /**
-     * µ¥»÷·µ»Ø¹¦ÄÜ
+     * å•å‡»è¿”å›åŠŸèƒ½
+     *
      * @param service
      */
     public static void doBack(AccessibilityService service) {
@@ -18,26 +19,29 @@ public class AccessibilityUtil {
     }
 
     /**
-     * ÏÂÀ­´ò¿ªÍ¨ÖªÀ¸
+     * ä¸‹æ‹‰æ‰“å¼€é€šçŸ¥æ 
+     *
      * @param service
      */
-    public static void doPullDown(AccessibilityService service) {
+    public static void doPullNotification(AccessibilityService service) {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_NOTIFICATIONS);
     }
 
     /**
-     * ÉÏÀ­·µ»Ø×ÀÃæ
+     * ä¸Šæ‹‰è¿”å›æ¡Œé¢
+     *
      * @param service
      */
-    public static void doPullUp(AccessibilityService service) {
+    public static void doPullHome(AccessibilityService service) {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
     }
 
     /**
-     * ×óÓÒ»¬¶¯´ò¿ª¶àÈÎÎñ
+     * å·¦å³æ»‘åŠ¨æ‰“å¼€å¤šä»»åŠ¡
+     *
      * @param service
      */
-    public static void doLeftOrRight(AccessibilityService service) {
+    public static void doMultiTask(AccessibilityService service) {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS);
     }
 
@@ -61,6 +65,22 @@ public class AccessibilityUtil {
         return false;
     }
 
+    public static void doAction(AccessibilityService service, String action) {
+        String[] actionNames = BaseApplication.getInstance().getActionNames();
+        if (actionNames[1].equals(action)) {
+            //ä¸‹æ‹‰é€šçŸ¥
+            doPullNotification(service);
+        } else if (actionNames[2].equals(action)) {
+            //å¤šä»»åŠ¡
+            doMultiTask(service);
+        } else if (actionNames[3].equals(action)) {
+            //è¿”å›
+            doBack(service);
+        } else if (actionNames[4].equals(action)) {
+            //è¿”å›ä¸»é¡µ
+            doPullHome(service);
+        }
+    }
 
 
 }
