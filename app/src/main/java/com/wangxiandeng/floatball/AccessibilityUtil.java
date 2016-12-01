@@ -9,6 +9,9 @@ import android.provider.Settings;
  */
 
 public class AccessibilityUtil {
+
+    private static FlashLightManager mManager;
+
     /**
      * 单击返回功能
      *
@@ -50,6 +53,7 @@ public class AccessibilityUtil {
         try {
             accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+//            android.provider.Settings.Secure.
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,6 +83,16 @@ public class AccessibilityUtil {
         } else if (actionNames[4].equals(action)) {
             //返回主页
             doPullHome(service);
+        } else if (actionNames[5].equals(action)) {
+            //手电筒
+            if (mManager == null) {
+                mManager = new FlashLightManager(BaseApplication.getInstance());
+                mManager.init();
+            }
+            if (!mManager.isTurnOnFlash())
+                mManager.turnOn();
+            else
+                mManager.turnOff();
         }
     }
 

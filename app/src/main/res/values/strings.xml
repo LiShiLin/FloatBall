@@ -8,12 +8,6 @@
         <item>多任务</item>
         <item>返回</item>
         <item>返回主页</item>
-    </array>
-    <array name="acticon_code">
-        <item>none</item>
-        <item>pull_notification</item>
-        <item>multitask</item>
-        <item>back</item>
-        <item>back_home</item>
+        <item>手电筒</item>
     </array>
 </resources>

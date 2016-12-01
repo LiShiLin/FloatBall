@@ -1,12 +1,16 @@
 package com.wangxiandeng.floatball;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,7 +30,7 @@ public class ActionAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mContext =parent.getContext();
+        mContext = parent.getContext();
         return new ActionViewHolder(View.inflate(parent.getContext(), R.layout.item_action, null));
     }
 
@@ -38,7 +42,7 @@ public class ActionAdapter extends RecyclerView.Adapter {
         final Action action = mDatas.get(position);
         viewHolder.tvName.setText(action.Name);
         //取出当前Event的Action
-        String actionStr=(String) SPUtils.get(mEventType, "无");
+        String actionStr = (String) SPUtils.get(mEventType, "无");
         if (actionStr.equals(action.Name)) {
             action.IsCheck = true;
             lastCheckBox = viewHolder.cbState;//选中的
@@ -49,9 +53,26 @@ public class ActionAdapter extends RecyclerView.Adapter {
         viewHolder.cbState.setChecked(action.IsCheck);
 
         viewHolder.llClick.setOnClickListener(new View.OnClickListener() {
+
+            private FlashLightManager mManager;
+
             @Override
             public void onClick(View v) {
                 if (viewHolder.cbState.isChecked()) return;//已经选中了
+                if (mManager == null) {
+                    mManager = new FlashLightManager(mContext);
+                    mManager.init();
+                }
+                if ("手电筒".equals(action.Name) && !mManager.isTurnOnFlash()) {
+                    //跳转开启权限
+                    Toast.makeText(mContext, "请开启相机权限", Toast.LENGTH_SHORT).show();
+                    Uri packageURI = Uri.parse("package:" + mContext.getPackageName());
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                    mContext.startActivity(intent);
+                    return;
+                }
+
+
                 SPUtils.set(mEventType, action.Name);
                 if (lastCheckBox != null) lastCheckBox.setChecked(false);
                 viewHolder.cbState.setChecked(true);
