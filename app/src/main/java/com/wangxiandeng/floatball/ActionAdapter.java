@@ -63,7 +63,7 @@ public class ActionAdapter extends RecyclerView.Adapter {
                     mManager = new FlashLightManager(mContext);
                     mManager.init();
                 }
-                if ("手电筒".equals(action.Name) && !mManager.isTurnOnFlash()) {
+                if ("手电筒".equals(action.Name) && !mManager.isCamreaSettingOn()) {
                     //跳转开启权限
                     Toast.makeText(mContext, "请开启相机权限", Toast.LENGTH_SHORT).show();
                     Uri packageURI = Uri.parse("package:" + mContext.getPackageName());

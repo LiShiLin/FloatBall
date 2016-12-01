@@ -15,6 +15,7 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Surface;
 import android.widget.Toast;
 
@@ -189,7 +190,10 @@ public class FlashLightManager {
     public boolean isTurnOnFlash() {
         return isOpenFlash;
     }
-
+    public  boolean isCamreaSettingOn() {
+        int checkPermission = ContextCompat.checkSelfPermission(BaseApplication.getInstance(), Manifest.permission.CAMERA);
+        return checkPermission == PackageManager.PERMISSION_GRANTED;
+    }
     /**
      * 判断Android系统版本是否 >= LOLLIPOP(API21)
      *
